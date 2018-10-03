@@ -34,7 +34,12 @@ def generateCpf(request):
     cpf = Question(question_text=gera_CPF(), pub_date=timezone.now())
     cpf.save()
     return HttpResponseRedirect(reverse('cpf:index'))
-    
+
+def delete(request):
+    cpf = Question(question_text=request.POST['delete'], pub_date=timezone.now())
+    cpf.delete()
+    return HttpResponseRedirect(reverse('cpf:index'))
+        
     
     # if check == "{} eh Valido".format(cpf):
     #     cpf.save()
@@ -43,21 +48,21 @@ def generateCpf(request):
     #     return render(request, 'cpf/validate.html', {'cpf': cpf, 'answer':check})
 
 def vote(request):
-    question = get_object_or_404(Question, pk=question_id)
-    try:
-        selected_choice = question.choice_set.get(pk=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
-        return render(request, 'cpf/detail.html', {
-            'question': question,
-            'error_message': "You didn't select a choice.",
-        })
-    else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
+    # question = get_object_or_404(Question, pk=question_id)
+    # try:
+    #     selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    # except (KeyError, Choice.DoesNotExist):
+    #     # Redisplay the question voting form.
+    #     return render(request, 'cpf/detail.html', {
+    #         'question': question,
+    #         'error_message': "You didn't select a choice.",
+    #     })
+    # else:
+    #     selected_choice.votes += 1
+    #     selected_choice.save()
+    #     # Always return an HttpResponseRedirect after successfully dealing
+    #     # with POST data. This prevents data from being posted twice if a
+    #     # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
 def voltar(request, question_id):

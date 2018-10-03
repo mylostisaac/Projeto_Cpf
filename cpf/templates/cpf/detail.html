@@ -13,4 +13,10 @@
 {% endfor %}
 <input type="submit" value="Voltar" >
 </form>
+
+<form action="{% url 'cpf:delete' %}" method="post">
+        {% csrf_token %}
+    <input type="hidden" name="delete" value="{{ question.question_text }}">
+    <input type="submit" value="Em construcao">
+</form>
 {% endblock %}

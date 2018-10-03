@@ -13,4 +13,5 @@ urlpatterns = [
     path('<int:question_id>/voltar/', views.voltar, name='voltar'),
     path('validate', views.validateCpf, name='validate'),
     path('generate', views.generateCpf, name='generate'),
+    path('delete', views.delete, name='delete'),
 ]
